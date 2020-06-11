@@ -59,7 +59,7 @@ def full_toy():
     for n in [5, 50]:
         for cr in [False, .5]:
             for base_change in [False, 100]:
-                for i in range(1):
+                for i in range(5):
                     filename = 'results/f{}-n={}-cr={}-base_change={}.json'.format(i+1, n, cr, base_change)
                     print('running {}'.format(filename))
 

@@ -193,14 +193,11 @@ class SingleDifferentialEvolution:
                 auxg, Q, T = self.compute_trafo(g)
                 auxacT = acT + np.dot(la.inv(acQ), T)
                 auxacQ = np.dot(Q, acQ)
-                cond = np.linalg.cond(auxacQ)
-
-                if cond < 1e8:
+                try:
                     acT = auxacT
                     acQ = la.inv(auxacQ)
-                else:
+                except:
                     ill_conditioned = gen
-                    print(ill_conditioned)
 
             # iterate
             new_g = np.zeros(shape=(self.n, self.N))
