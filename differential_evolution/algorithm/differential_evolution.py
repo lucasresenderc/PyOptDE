@@ -1,16 +1,27 @@
+"""
+Differential Evolution class file.
+"""
+
 import json
 import numpy as np
 
 from .single_differential_evolution import SingleDifferentialEvolution
 from .multiple_differential_evolution import MultipleDifferentialEvolution
 
+
 class DifferentialEvolution:
+    """Differential Evolution model.
+    """
+
     def __init__(self, f, n, N=False, crossover_p=False, scaling_factor=.75, populate_method='cube', populate_data=(0, 1), iterations=100, base_change=False, get_history=False, seed=False, trials=1):
+
         self.f = f
         self.n = n
         self.N = N
+
         if not N:
             self.N = 2*self.n if n > 2 else 4
+
         self.cr = crossover_p
         self.F = scaling_factor
         self.populate_method = populate_method
@@ -41,6 +52,7 @@ class DifferentialEvolution:
                 get_history=self.get_history,
                 seed=self.seed
             )
+
             data = opt.run()
 
             if self.get_history:
@@ -51,6 +63,7 @@ class DifferentialEvolution:
                     'general_enhances_history': data[3],
                     'best_enhances_history': data[4]
                 }
+
                 if self.base_change:
                     results['ill_conditioned'] = data[5]
             else:
@@ -60,6 +73,7 @@ class DifferentialEvolution:
                     'count_general_enhances': (1.*data[2])/(self.N*self.iter),
                     'count_best_enhances': (1.*data[3])/self.iter
                 }
+
                 if self.base_change:
                     results['ill_conditioned'] = data[4]
 
@@ -78,10 +92,12 @@ class DifferentialEvolution:
                 seed=self.seed,
                 trials=self.trials
             )
+
             data = opt.run(processes=processes)
 
             if self.get_history:
                 results = {}
+
                 for i in range(self.trials):
                     results[i] = {
                         'generations': data[i][0],
@@ -90,6 +106,7 @@ class DifferentialEvolution:
                         'general_enhances_history': data[i][3],
                         'best_enhances_history': data[i][4]
                     }
+
                     if self.base_change:
                         results[i]['ill_conditioned'] = data[i][5]
             else:
@@ -101,9 +118,11 @@ class DifferentialEvolution:
                 mean_best_enhances = data[0][3]
                 general_enhances_at_the_best = data[0][2]
                 best_enhances_at_the_best = data[0][3]
+
                 for i in range(1, self.trials):
                     mean_general_enhances += data[i][2]
                     mean_best_enhances += data[i][3]
+
                     if data[i][1] < best_f:
                         best_x = data[i][0]
                         best_f = data[i][1]
@@ -111,6 +130,7 @@ class DifferentialEvolution:
                         best_seed = i
                         general_enhances_at_the_best = data[i][2]
                         best_enhances_at_the_best = data[i][3]
+
                 results = {
                     'x': best_x,
                     'fx': best_f,
@@ -119,12 +139,15 @@ class DifferentialEvolution:
                     'general_enhances_at_the_best': (1.*general_enhances_at_the_best)/(self.N*self.iter),
                     'best_enhances_at_the_best': (1.*best_enhances_at_the_best)/self.iter
                 }
+
                 if self.seed:
                     results['seed_of_the_best'] = self.seed[best_seed]
+
                 if self.base_change:
                     results['ill_conditioned_at_the_best'] = best_ill
 
         self.results = results
+
         return results
 
     def get_results(self):
@@ -132,6 +155,7 @@ class DifferentialEvolution:
 
     def write_results(self, filename):
         d = self.results.copy()
+
         if self.get_history:
             if self.trials > 1:
                 for i in range(self.trials):

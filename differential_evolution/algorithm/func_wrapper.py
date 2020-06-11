@@ -1,7 +1,14 @@
+"""
+Function wrapper to be called using multiprocessing pool.
+"""
+
 from .single_differential_evolution import SingleDifferentialEvolution
 
+
 def single_realization(params):
+
     f, n, N, cr, F, populate_method, populate_data, iterations, base_change, get_history, seed = params
+
     opt = SingleDifferentialEvolution(
         f,
         n,
@@ -15,4 +22,5 @@ def single_realization(params):
         get_history=get_history,
         seed=seed
     )
+
     return opt.run()

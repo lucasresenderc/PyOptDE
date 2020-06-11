@@ -1,12 +1,12 @@
+"""
+A more complete example.
+"""
+
 import numpy as np
 from ..algorithm import DifferentialEvolution as DE
 
 
-'''
-TEST FUNCTIONS
-'''
-
-
+# TEST FUNCTIONS
 def f1(x):
     return np.dot(x, x)
 
@@ -21,12 +21,14 @@ def f3(x):
 
 def f4(x):
     aux = x*x
+
     return np.sum(.5*aux*aux - 8*aux + 2.5*x) + 40*x.size
 
 
 def f5(x):
     aux1 = np.sum(x*x)/4000
     aux2 = np.prod(np.cos(x/np.sqrt(np.arange(1, x.size+1))))
+
     return aux1 - aux2 + 1
 
 
@@ -53,12 +55,14 @@ def full_toy():
     F = 0.75
     iterations = 50005
     trials = 100
+
     for n in [5, 50]:
         for cr in [False, .5]:
             for base_change in [False, 100]:
                 for i in range(1):
                     filename = 'results/f{}-n={}-cr={}-base_change={}.json'.format(i+1, n, cr, base_change)
                     print('running {}'.format(filename))
+
                     optimizer = DE(
                         functions[i],
                         n,
@@ -73,6 +77,7 @@ def full_toy():
                         seed=range(1, trials+1),
                         trials=trials
                     )
+
                     optimizer.run(processes=trials)
                     optimizer.write_results(filename)
 
