@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name = "differential-evolution", # Replace with your own username
+    name = "PyOptDE", # Replace with your own username
     version = "1.0",
     author = "Lucas Resende",
     author_email = "lucasresenderc@gmail.com",
     description = "An implementation of the Differential Evolution algorithm.",
     long_description = long_description,
     long_description_content_type = "text/markdown",
-    url = "https://github.com/lucasresenrc/DifferentialEvolution",
+    url = "https://github.com/lucasresenderc/DifferentialEvolution",
     packages = setuptools.find_packages(),
     classifiers = [
         "Programming Language :: Python :: 3",

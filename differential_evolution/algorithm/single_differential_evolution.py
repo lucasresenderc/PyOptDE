@@ -146,19 +146,18 @@ class SingleDifferentialEvolution:
     def compute_trafo(self, X):
         # get mean
         T = np.array([1 / self.N * np.sum(X, axis=1)]).T * np.array([np.ones(self.N)])
-
         # M is positive semidef
         M = np.dot((X - T), (X - T).T)
-
         # root
-        S = la.sqrtm(M)
-
+        # we NEED to force the root to be real
+        # it is easy to show that it is real
+        # but numpy seems to don't understand
+        # too much about positive semidef matrices
+        S = np.real(la.sqrtm(M))
         # root
-        Q = la.inv(S)
-
+        Q = np.real(la.inv(S))
         # returns
         new_X = np.dot(Q, X - T)
-
         return new_X, Q, T
 
     def normalized_de(self):
@@ -188,16 +187,24 @@ class SingleDifferentialEvolution:
                 general_enhances_history.append(0)
 
             # change basis with frequence base_change
-            if gen % self.base_change == 0 and gen > 0 and not ill_conditioned:
-                #verify if the condition number ins't too high
-                auxg, Q, T = self.compute_trafo(g)
-                auxacT = acT + np.dot(la.inv(acQ), T)
-                auxacQ = np.dot(Q, acQ)
+            if gen % self.base_change == 0 and gen > 0:
+                worked = True
                 try:
-                    acT = auxacT
-                    acQ = la.inv(auxacQ)
+                    #verify if the condition number ins't too high
+                    aux_g, Q, T = self.compute_trafo(g)
+                    aux_acT = acT + np.dot(invacQ, T)
+                    aux_acQ = np.dot(Q, acQ)
+                    aux_invacQ = np.real(la.inv(aux_acQ))
                 except:
-                    ill_conditioned = gen
+                    worked = False
+                    if not ill_conditioned:
+                        ill_conditioned = gen
+
+                if worked:
+                    g = aux_g
+                    acT = aux_acT
+                    acQ = aux_acQ
+                    invacQ = aux_invacQ
 
             # iterate
             new_g = np.zeros(shape=(self.n, self.N))
@@ -252,7 +259,7 @@ class SingleDifferentialEvolution:
             fg = new_fg
 
             if self.get_history:
-                generations.append(g)
+                generations.append(norm_g)
                 f_generations.append(fg)
                 i_bests.append(np.argmin(fg).tolist())
 
@@ -260,7 +267,7 @@ class SingleDifferentialEvolution:
             return generations, f_generations, i_bests, general_enhances_history, best_enhances_history, ill_conditioned
         else:
             i_best = np.argmin(fg)
-            return g[:, i_best], fg[i_best], count_general_enhances, count_best_enhances, ill_conditioned
+            return norm_g[:, i_best], fg[i_best], count_general_enhances, count_best_enhances, ill_conditioned
 
     def run(self):
         # get optimum cr for execution if no cr was given
