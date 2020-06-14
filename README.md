@@ -67,9 +67,9 @@ def f(x):
 
 # set the dimension of the search space
 n = 2
-# init an DifferentialEvolution instance with 10 trials
+# init a DifferentialEvolution instance with 10 trials
 optimizer = DE(f, n, iterations=1000, trials=10)
-# runs the optimization in using 5 processors
+# runs the optimization using 5 processors
 optimizer.run(processes=5)
 # then you can save your results
 optimizer.write_results('results.json')
