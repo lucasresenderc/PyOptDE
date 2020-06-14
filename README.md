@@ -23,7 +23,7 @@ def f(x):
 
 # set the dimension of the search space
 n = 2
-# init an DifferentialEvolution instance
+# init a DifferentialEvolution instance
 optimizer = DE(f, n, iterations=1000, seed=1)
 # runs the optimization
 optimizer.run()
