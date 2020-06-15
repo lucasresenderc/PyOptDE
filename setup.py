@@ -11,7 +11,7 @@ setuptools.setup(
     description = "An implementation of the Differential Evolution algorithm.",
     long_description = long_description,
     long_description_content_type = "text/markdown",
-    url = "https://github.com/lucasresenderc/DifferentialEvolution",
+    url = "https://github.com/lucasresenderc/PyOptDE",
     packages = setuptools.find_packages(),
     classifiers = [
         "Programming Language :: Python :: 3",
