@@ -1,5 +1,5 @@
 ![DELOGO](https://user-images.githubusercontent.com/24375125/84321286-3f3ac580-ab49-11ea-8d0d-b841bc06113c.png)
-# DifferentialEvolution
+# PyOptDE
 
 This module is an implementation of the Differential Evolution (DE) algorithm. Proposed by Price and Storn in a series of papers [1, 2, 3],  the Differential Evolution is a along-established evolutionary algorithm that aims to optimize functions on a continuous domain. You can install using pip:
 
