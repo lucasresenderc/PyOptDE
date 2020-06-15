@@ -23,7 +23,6 @@ setuptools.setup(
         "numpy",
         "matplotlib",
         "scipy",
-        "numpy",
-        "pandas"
+        "numpy"
     ]
 )
