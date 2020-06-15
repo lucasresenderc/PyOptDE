@@ -1,7 +1,11 @@
 ![DELOGO](https://user-images.githubusercontent.com/24375125/84321286-3f3ac580-ab49-11ea-8d0d-b841bc06113c.png)
 # DifferentialEvolution
 
-This module is an implementation of the Differential Evolution (DE) algorithm. Proposed by Price and Storn in a series of papers [1, 2, 3],  the Differential Evolution is a along-established evolutionary algorithm that aims to optimize functions on a continuous domain.
+This module is an implementation of the Differential Evolution (DE) algorithm. Proposed by Price and Storn in a series of papers [1, 2, 3],  the Differential Evolution is a along-established evolutionary algorithm that aims to optimize functions on a continuous domain. You can install using pip:
+
+```bash
+pip install PyOptDE
+```
 
 The Differential Evolution requires no qualitative nor quantitative information about the objective function (such as continuity, differentiability, etc). The algorithm is useful and recommended to deal with black-boxes or functions with many local optima that might trick other algorithms.
 
@@ -12,7 +16,7 @@ This implementation assumes that the domain is R^n and that the objective functi
 
 ```python
 import numpy as np
-from DE import DifferentialEvolution as DE
+from PyOptDE import DifferentialEvolution as DE
 
 '''
 Simplest possible use
@@ -59,7 +63,7 @@ Since it is an stochastic algorithm one might run it at least a few times to mak
 
 ```python
 import numpy as np
-from DE import DifferentialEvolution as DE
+from PyOptDE import DifferentialEvolution as DE
 
 # define a function from R^n to R to minimize
 def f(x):

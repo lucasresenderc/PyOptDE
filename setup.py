@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name = "PyOptDE", # Replace with your own username
-    version = "1.0",
+    version = "1.1",
     author = "Lucas Resende",
     author_email = "lucasresenderc@gmail.com",
     description = "An implementation of the Differential Evolution algorithm.",
