@@ -162,4 +162,4 @@ ___
 
 [4] Karol R Opara and Jaroslaw Arabas. *Differential evolution: A survey of theoretical analyses.* Swarm and evolutionary computation, 44:546–558, 2019.
 
-[5] (wait)
+[5] Lucas Resende and Ricardo H. C. Takahashi. *Contributions to Dynamic Analysis of Differential Evolution Algorithms.* Evolutionary Computation, 2022 
